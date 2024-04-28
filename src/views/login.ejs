@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registation page</title>
+</head>
+<body>
+    <div>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+    </div>
+    <h1>Login</h1>
+    <form id="login-form">
+        <label>Email:</label><br>
+        <input type="email" id="email" name="email" required><br>
+        <label>Password:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="/register">Register</a></p>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        const loginForm = document.getElementById('login-form');
+
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await axios.post('http://localhost:3000/auth/login', { email, password });
+                const token = response.data.token;
+
+                // Stocke le token JWT dans les cookies
+                document.cookie = `jwt=${token}`;
+
+                alert('Login successful');
+                window.location.href = '/protected'; // Redirige vers la route protégée
+            } catch (error) {
+                alert('Login failed');
+            }
+        });
+    </script>
+</body>
+</html>

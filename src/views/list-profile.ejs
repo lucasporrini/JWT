@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+</head>
+<body>
+    <div>
+        <a href="/protected/">Users</a>
+        <a href="/auth/logout">Logout</a>
+    </div>
+    <h1 class="text-sm">Users</h1>
+    <div>
+        <% users.forEach(user => { %>
+            <a href="/protected/user/<%= user.user_id %>">
+                <p>Nom d'utilisateur : <%= user.user_name %></p>
+            </a>
+        <% }); %>
+    </div>
+</body>
+</html>
